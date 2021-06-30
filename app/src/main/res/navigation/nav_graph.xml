@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/popularMoviesFragment">
 
+    <fragment
+        android:id="@+id/popularMoviesFragment"
+        android:name="com.skileld.android.themoviedbtestapp.ui.fragments.PopularMoviesFragment"
+        android:label="popular_movies_fragment"
+        tools:layout="@layout/popular_movies_fragment" />
+    <fragment
+        android:id="@+id/topMoviesFragment"
+        android:name="com.skileld.android.themoviedbtestapp.ui.fragments.TopMoviesFragment"
+        android:label="top_movies_fragment"
+        tools:layout="@layout/top_movies_fragment" />
+    <fragment
+        android:id="@+id/searchMoviesFragment"
+        android:name="com.skileld.android.themoviedbtestapp.ui.fragments.SearchMoviesFragment"
+        android:label="search_movies_fragment"
+        tools:layout="@layout/search_movies_fragment" />
 </navigation>
