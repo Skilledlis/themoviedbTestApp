@@ -1,10 +1,11 @@
-package com.skileld.android.themoviedbtestapp
+package com.skileld.android.themoviedbtestapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
+import com.skileld.android.themoviedbtestapp.R
 import com.skileld.android.themoviedbtestapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

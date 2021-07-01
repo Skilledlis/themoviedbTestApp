@@ -1,0 +1,9 @@
+package com.skileld.android.themoviedbtestapp.util
+
+class Constants {
+    companion object{
+        const val API_KEY = "64967af077e0c68879a345f297fe21d7"
+        const val BASE_URL = "https://api.themoviedb.org"
+
+    }
+}

@@ -1,9 +1,10 @@
-package com.skileld.android.themoviedbtestapp
+package com.skileld.android.themoviedbtestapp.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.skileld.android.themoviedbtestapp.R
 
 class SplashActivity : AppCompatActivity() {
 
