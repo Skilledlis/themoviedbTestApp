@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+
+    <ImageView
+        android:id="@+id/movies_image"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/movies_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/movies_image"
+        app:layout_constraintTop_toTopOf="@+id/movies_image"
+        tools:text="Titanic" />
+
+    <TextView
+        android:id="@+id/release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/movies_image"
+        app:layout_constraintTop_toBottomOf="@+id/movies_title"
+        tools:text="15.04.2021" />
+
+    <TextView
+        android:id="@+id/popularity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/movies_image"
+        app:layout_constraintStart_toEndOf="@+id/popularIcon"
+        tools:text="8.4" />
+
+    <ImageView
+        android:id="@+id/popularIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/movies_image"
+        app:layout_constraintStart_toEndOf="@+id/movies_image"
+        app:srcCompat="@drawable/ic_baseline_whatshot_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
