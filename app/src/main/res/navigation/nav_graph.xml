@@ -9,7 +9,11 @@
         android:id="@+id/popularMoviesFragment"
         android:name="com.skileld.android.themoviedbtestapp.ui.fragments.PopularMoviesFragment"
         android:label="popular_movies_fragment"
-        tools:layout="@layout/popular_movies_fragment" />
+        tools:layout="@layout/popular_movies_fragment" >
+        <action
+            android:id="@+id/action_popularMoviesFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/topMoviesFragment"
         android:name="com.skileld.android.themoviedbtestapp.ui.fragments.TopMoviesFragment"
@@ -20,4 +24,9 @@
         android:name="com.skileld.android.themoviedbtestapp.ui.fragments.SearchMoviesFragment"
         android:label="search_movies_fragment"
         tools:layout="@layout/search_movies_fragment" />
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.skileld.android.themoviedbtestapp.ui.fragments.MovieFragment"
+        android:label="movie_fragment"
+        tools:layout="@layout/movie_fragment" />
 </navigation>

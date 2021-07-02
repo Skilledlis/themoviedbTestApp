@@ -48,4 +48,9 @@ class PopularMoviesViewModel(
         return Resource.Error(response.message())
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
+
 }

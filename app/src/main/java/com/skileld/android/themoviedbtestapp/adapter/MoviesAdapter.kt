@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skileld.android.themoviedbtestapp.databinding.ItemMoveisCardBinding
 import com.skileld.android.themoviedbtestapp.models.Result
+import com.skileld.android.themoviedbtestapp.util.Constants.Companion.IMAGE_URL
 import com.squareup.picasso.Picasso
 
 
@@ -42,11 +43,13 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         val movies = differ.currentList[position]
         holder.itemView.apply {
-            Picasso.get().load("https://image.tmdb.org/t/p/original/${movies.poster_path}").into(holder.moviesImage)
+            Picasso.get().load(IMAGE_URL + movies.poster_path).into(holder.moviesImage)
             holder.moviesTitle.text = movies.title
             holder.moviesReleaseDate.text = movies.release_date
-            holder.moviesPopularity.text = movies.popularity.toString()
-            setOnClickListener{
+            holder.moviesPopularity.text = if (movies.vote_average.toString() != "0.0") {
+                movies.vote_average.toString()
+            } else "NaN"
+            setOnClickListener {
                 Toast.makeText(context, movies.title, Toast.LENGTH_SHORT).show()
             }
         }

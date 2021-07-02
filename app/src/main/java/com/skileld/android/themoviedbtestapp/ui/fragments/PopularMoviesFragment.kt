@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
 import com.skileld.android.themoviedbtestapp.databinding.PopularMoviesFragmentBinding
@@ -78,7 +79,7 @@ class PopularMoviesFragment : Fragment() {
         moviesAdapter = MoviesAdapter()
         binding.rvPopularsMovies.apply {
             adapter = moviesAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(activity,2)
         }
     }
 
