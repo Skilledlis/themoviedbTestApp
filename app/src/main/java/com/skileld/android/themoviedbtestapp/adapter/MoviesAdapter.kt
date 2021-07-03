@@ -3,16 +3,19 @@ package com.skileld.android.themoviedbtestapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.skileld.android.themoviedbtestapp.R
 import com.skileld.android.themoviedbtestapp.databinding.ItemMoveisCardBinding
 import com.skileld.android.themoviedbtestapp.models.Result
+import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.util.Constants.Companion.IMAGE_URL
 import com.squareup.picasso.Picasso
 
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter(var movieViewModel: MovieViewModel) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
     inner class MoviesViewHolder(binding: ItemMoveisCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val moviesImage = binding.moviesImage
@@ -50,6 +53,9 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
                 movies.vote_average.toString()
             } else "NaN"
             setOnClickListener {
+                val navController = it.findNavController()
+                navController.navigate(R.id.movieFragment)
+                movieViewModel.title = movies.title
                 Toast.makeText(context, movies.title, Toast.LENGTH_SHORT).show()
             }
         }

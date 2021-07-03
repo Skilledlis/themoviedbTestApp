@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
 import com.skileld.android.themoviedbtestapp.databinding.PopularMoviesFragmentBinding
 import com.skileld.android.themoviedbtestapp.ui.MainActivity
+import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.ui.viewModels.PopularMoviesViewModel
 import com.skileld.android.themoviedbtestapp.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -76,7 +77,8 @@ class PopularMoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter()
+        val movieViewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+        moviesAdapter = MoviesAdapter(movieViewModel)
         binding.rvPopularsMovies.apply {
             adapter = moviesAdapter
             layoutManager = GridLayoutManager(activity,2)
