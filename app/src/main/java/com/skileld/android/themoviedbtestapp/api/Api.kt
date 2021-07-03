@@ -1,5 +1,6 @@
 package com.skileld.android.themoviedbtestapp.api
 
+import com.skileld.android.themoviedbtestapp.models.MovieResponse
 import com.skileld.android.themoviedbtestapp.util.Constants.Companion.API_KEY
 import com.skileld.android.themoviedbtestapp.models.MoviesResponse
 import retrofit2.Response
@@ -49,5 +50,5 @@ interface Api {
         apiKey: String = API_KEY,
         @Query("language")
         language: String = "ru",
-    )
+    ): Response<MovieResponse>
 }

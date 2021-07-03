@@ -13,6 +13,10 @@ import com.skileld.android.themoviedbtestapp.models.Result
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.util.Constants.Companion.IMAGE_URL
 import com.squareup.picasso.Picasso
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class MoviesAdapter(var movieViewModel: MovieViewModel) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
@@ -48,14 +52,21 @@ class MoviesAdapter(var movieViewModel: MovieViewModel) : RecyclerView.Adapter<M
         holder.itemView.apply {
             Picasso.get().load(IMAGE_URL + movies.poster_path).into(holder.moviesImage)
             holder.moviesTitle.text = movies.title
-            holder.moviesReleaseDate.text = movies.release_date
+
+            val parser = SimpleDateFormat("yyyy-mm-dd")
+            val formater = SimpleDateFormat("yyyy")
+
+            val output = formater.format(parser.parse(movies.release_date))
+
+
+            holder.moviesReleaseDate.text = output
             holder.moviesPopularity.text = if (movies.vote_average.toString() != "0.0") {
                 movies.vote_average.toString()
             } else "NaN"
             setOnClickListener {
                 val navController = it.findNavController()
                 navController.navigate(R.id.movieFragment)
-                movieViewModel.title = movies.title
+                movieViewModel.moviesId = movies.id
                 Toast.makeText(context, movies.title, Toast.LENGTH_SHORT).show()
             }
         }

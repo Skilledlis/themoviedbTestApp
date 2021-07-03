@@ -18,7 +18,6 @@ class PopularMoviesViewModel(
 ) : AndroidViewModel(app), CoroutineScope {
 
     val popularRepository: Repository = Repository()
-
     val popularMovies: MutableLiveData<Resource<MoviesResponse>> = MutableLiveData()
 
 
@@ -35,11 +34,11 @@ class PopularMoviesViewModel(
         launch(Dispatchers.Main) {
             popularMovies.postValue(Resource.Loading())
             val response = popularRepository.getPopular()
-            popularMovies.postValue(handlerNewsResponse(response))
+            popularMovies.postValue(handlerPopularResponse(response))
         }
     }
 
-    private fun handlerNewsResponse(response: Response<MoviesResponse>): Resource<MoviesResponse> {
+    private fun handlerPopularResponse(response: Response<MoviesResponse>): Resource<MoviesResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
