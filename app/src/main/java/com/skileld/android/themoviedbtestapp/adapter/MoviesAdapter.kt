@@ -17,9 +17,11 @@ import java.text.SimpleDateFormat
 
 class MoviesAdapter(var movieViewModel: MovieViewModel) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+
+
     inner class MoviesViewHolder(binding: ItemMoveisCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val moviesImage = binding.moviesImage
+        public var moviesImage = binding.moviesImage
         val moviesTitle = binding.moviesTitle
         val moviesReleaseDate = binding.releaseDate
         val moviesPopularity = binding.popularity
@@ -50,13 +52,20 @@ class MoviesAdapter(var movieViewModel: MovieViewModel) :
             Picasso.get().load(IMAGE_URL + movies.poster_path).into(holder.moviesImage)
             holder.moviesTitle.text = movies.title
 
-            val parser = SimpleDateFormat("yyyy-mm-dd")
-            val formater = SimpleDateFormat("yyyy")
 
-            val output = formater.format(parser.parse(movies.release_date))
+            when (movies.release_date) {
+                "" -> holder.moviesReleaseDate.text = "NaN"
+                else -> {
+                    val parser = SimpleDateFormat("yyyy-mm-dd")
+                    val formater = SimpleDateFormat("yyyy")
+                    val output = formater.format(parser.parse(movies.release_date))
+                    holder.moviesReleaseDate.text = output
+                }
+            }
 
 
-            holder.moviesReleaseDate.text = output
+
+
             holder.moviesPopularity.text = if (movies.vote_average.toString() != "0.0") {
                 movies.vote_average.toString()
             } else "NaN"
@@ -67,8 +76,5 @@ class MoviesAdapter(var movieViewModel: MovieViewModel) :
             }
         }
     }
-
     override fun getItemCount(): Int = differ.currentList.size
-
-
 }

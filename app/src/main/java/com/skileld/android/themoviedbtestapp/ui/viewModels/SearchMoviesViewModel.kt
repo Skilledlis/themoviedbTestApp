@@ -3,8 +3,7 @@ package com.skileld.android.themoviedbtestapp.ui.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.skileld.android.themoviedbtestapp.models.MovieResponse
-import com.skileld.android.themoviedbtestapp.models.ResultSearch
+import com.skileld.android.themoviedbtestapp.models.MoviesResponse
 import com.skileld.android.themoviedbtestapp.repository.Repository
 import com.skileld.android.themoviedbtestapp.util.Resource
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +16,7 @@ import kotlin.coroutines.CoroutineContext
 class SearchMoviesViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     private val movieRepository: Repository = Repository()
-    val movie: MutableLiveData<Resource<ResultSearch>> = MutableLiveData()
+    val searchMovies: MutableLiveData<Resource<MoviesResponse>> = MutableLiveData()
 
 
 
@@ -28,13 +27,13 @@ class SearchMoviesViewModel(app: Application) : AndroidViewModel(app), Coroutine
 
     fun requestMovies(query:String) {
         launch(Dispatchers.Main) {
-            movie.postValue(Resource.Loading())
+            searchMovies.postValue(Resource.Loading())
             val response = movieRepository.getSearch(query)
-            movie.postValue(handlerNewsResponse(response))
+            searchMovies.postValue(handlerNewsResponse(response))
         }
     }
 
-    private fun handlerNewsResponse(response: Response<ResultSearch>): Resource<ResultSearch> {
+    private fun handlerNewsResponse(response: Response<MoviesResponse>): Resource<MoviesResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
