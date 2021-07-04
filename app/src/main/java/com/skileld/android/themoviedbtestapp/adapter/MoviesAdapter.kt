@@ -2,7 +2,6 @@ package com.skileld.android.themoviedbtestapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -13,13 +12,11 @@ import com.skileld.android.themoviedbtestapp.models.Result
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.util.Constants.Companion.IMAGE_URL
 import com.squareup.picasso.Picasso
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
-class MoviesAdapter(var movieViewModel: MovieViewModel) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter(var movieViewModel: MovieViewModel) :
+    RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
     inner class MoviesViewHolder(binding: ItemMoveisCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val moviesImage = binding.moviesImage
@@ -67,7 +64,6 @@ class MoviesAdapter(var movieViewModel: MovieViewModel) : RecyclerView.Adapter<M
                 val navController = it.findNavController()
                 navController.navigate(R.id.movieFragment)
                 movieViewModel.moviesId = movies.id
-                Toast.makeText(context, movies.title, Toast.LENGTH_SHORT).show()
             }
         }
     }

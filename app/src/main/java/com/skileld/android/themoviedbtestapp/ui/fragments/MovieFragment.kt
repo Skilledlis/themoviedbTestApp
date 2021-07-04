@@ -54,8 +54,8 @@ class MovieFragment : Fragment() {
                        binding.genre.text = it.genres[0].name
 
                        val parser = SimpleDateFormat("yyyy-mm-dd")
-                       val formater = SimpleDateFormat("yyyy")
-                       val output = formater.format(parser.parse(it.release_date))
+                       val formatter = SimpleDateFormat("yyyy")
+                       val output = formatter.format(parser.parse(it.release_date))
                        binding.releaseDate.text = output
 
                        binding.status.text = it.status

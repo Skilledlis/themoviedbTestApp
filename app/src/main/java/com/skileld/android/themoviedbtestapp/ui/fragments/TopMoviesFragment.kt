@@ -1,16 +1,14 @@
 package com.skileld.android.themoviedbtestapp.ui.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.skileld.android.themoviedbtestapp.R
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
-import com.skileld.android.themoviedbtestapp.databinding.PopularMoviesFragmentBinding
 import com.skileld.android.themoviedbtestapp.databinding.TopMoviesFragmentBinding
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.ui.viewModels.TopMoviesViewModel
@@ -24,7 +22,7 @@ class TopMoviesFragment : Fragment() {
     }
 
     private lateinit var viewModel: TopMoviesViewModel
-    lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var moviesAdapter: MoviesAdapter
 
     private var _binding: TopMoviesFragmentBinding? = null
     private val binding get() = _binding!!
@@ -45,16 +43,15 @@ class TopMoviesFragment : Fragment() {
 
         val connectionLiveData = ConnectionLiveData(requireContext())
         connectionLiveData.observe(viewLifecycleOwner, { isNetworkAvailable ->
-            if (isNetworkAvailable){
+            if (isNetworkAvailable) {
                 viewModel.requestTopMovies()
-            }
-            else {
+            } else {
                 Log.e("networkAvailable", "Error $isNetworkAvailable")
             }
         })
 
         viewModel.popularMovies.observe(viewLifecycleOwner, { response ->
-            when(response){
+            when (response) {
                 is Resource.Success -> {
                     binding.shimmerLayout.visibility = View.GONE
                     response.data?.let {
@@ -78,7 +75,7 @@ class TopMoviesFragment : Fragment() {
         moviesAdapter = MoviesAdapter(movieViewModel)
         binding.rvPopularsMovies.apply {
             adapter = moviesAdapter
-            layoutManager = GridLayoutManager(activity,2)
+            layoutManager = GridLayoutManager(activity, 2)
         }
     }
 
