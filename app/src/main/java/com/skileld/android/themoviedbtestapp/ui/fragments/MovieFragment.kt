@@ -39,7 +39,6 @@ class MovieFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
-        binding.shimmerLayout.startShimmer()
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val actionBar = (activity as AppCompatActivity).supportActionBar
