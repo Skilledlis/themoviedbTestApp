@@ -3,13 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.SearchMoviesFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/search"
-        android:textSize="60sp" />
+<androidx.appcompat.widget.SearchView
+    android:id="@+id/search_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:queryHint="Search"
+    app:iconifiedByDefault="false"
+    android:layout_margin="10dp"
+    app:queryBackground="@android:color/transparent"
+    android:background="@drawable/search_background"/>
 
 </FrameLayout>
+

@@ -3,6 +3,7 @@ package com.skileld.android.themoviedbtestapp.api
 import com.skileld.android.themoviedbtestapp.models.MovieResponse
 import com.skileld.android.themoviedbtestapp.util.Constants.Companion.API_KEY
 import com.skileld.android.themoviedbtestapp.models.MoviesResponse
+import com.skileld.android.themoviedbtestapp.models.ResultSearch
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -40,7 +41,7 @@ interface Api {
         query: String,
         @Query("include_adult")
         include_adult: String = "false"
-    ): Response<MoviesResponse>
+    ): Response<ResultSearch>
 
     @GET("3/movie/{Id}")
     suspend fun getDetails(
