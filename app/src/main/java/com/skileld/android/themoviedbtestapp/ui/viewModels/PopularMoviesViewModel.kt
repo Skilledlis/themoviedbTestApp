@@ -17,7 +17,7 @@ class PopularMoviesViewModel(
     app: Application
 ) : AndroidViewModel(app), CoroutineScope {
 
-    val popularRepository: Repository = Repository()
+    private val popularRepository: Repository = Repository()
     val popularMovies: MutableLiveData<Resource<MoviesResponse>> = MutableLiveData()
 
 
@@ -25,10 +25,6 @@ class PopularMoviesViewModel(
         get() = Dispatchers.Main + job
 
     private val job = Job()
-
-    init {
-        requestPopularMovies()
-    }
 
     fun requestPopularMovies() {
         launch(Dispatchers.Main) {

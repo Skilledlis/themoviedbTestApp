@@ -18,7 +18,11 @@
         android:id="@+id/topMoviesFragment"
         android:name="com.skileld.android.themoviedbtestapp.ui.fragments.TopMoviesFragment"
         android:label="top_movies_fragment"
-        tools:layout="@layout/top_movies_fragment" />
+        tools:layout="@layout/top_movies_fragment" >
+        <action
+            android:id="@+id/action_topMoviesFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchMoviesFragment"
         android:name="com.skileld.android.themoviedbtestapp.ui.fragments.SearchMoviesFragment"

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "393561319945",
+    "project_id": "themoviedbtestapp",
+    "storage_bucket": "themoviedbtestapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393561319945:android:7d4fb47625ab4e2386a6d8",
+        "android_client_info": {
+          "package_name": "com.skileld.android.themoviedbtestapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393561319945-la6uaa70mgn383qvbie4tk99e3s1o706.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQeZSHfWdCH1nXyhbuwfnlOCDUMwadZ9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393561319945-la6uaa70mgn383qvbie4tk99e3s1o706.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,8 +5,8 @@
     android:id="@+id/movies_card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="6dp"
-    android:layout_marginStart="6dp">
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,51 +17,50 @@
             android:id="@+id/movies_image"
             android:layout_width="70dp"
             android:layout_height="120dp"
+            android:background="@color/grey"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/movies_title"
             android:layout_width="100dp"
-            android:layout_height="0dp"
+            android:layout_height="70dp"
             android:layout_marginStart="8dp"
+            android:background="@color/grey"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/release_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movies_image"
-            app:layout_constraintTop_toTopOf="@+id/movies_image"
-            tools:text="TitanicTitext At extA ppea ra ncete xt Appea rancec" />
+            app:layout_constraintTop_toTopOf="@+id/movies_image" />
 
         <TextView
             android:id="@+id/release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="15dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="4dp"
+            android:background="@color/grey"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/popularIcon"
-            app:layout_constraintStart_toEndOf="@+id/movies_image"
-            tools:text="15.04.2021" />
+            app:layout_constraintStart_toEndOf="@+id/movies_image" />
 
         <TextView
             android:id="@+id/popularity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
             android:layout_marginStart="4dp"
+            android:background="@color/grey"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/movies_image"
-            app:layout_constraintStart_toEndOf="@+id/popularIcon"
-            tools:text="8.4" />
+            app:layout_constraintStart_toEndOf="@+id/popularIcon" />
 
         <ImageView
             android:id="@+id/popularIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:background="@color/grey"
             app:layout_constraintBottom_toBottomOf="@+id/movies_image"
             app:layout_constraintStart_toEndOf="@+id/movies_image"
             app:srcCompat="@drawable/ic_baseline_whatshot_24" />

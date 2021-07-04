@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.skileld.android.themoviedbtestapp.databinding.MovieFragmentBinding
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
+import com.skileld.android.themoviedbtestapp.util.ConnectionLiveData
 import com.skileld.android.themoviedbtestapp.util.Constants
 import com.skileld.android.themoviedbtestapp.util.Resource
 import com.squareup.picasso.Picasso
@@ -37,37 +39,51 @@ class MovieFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
-        viewModel.requestMovies()
+        binding.shimmerLayout.startShimmer()
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
 
+
+        val connectionLiveData = ConnectionLiveData(requireContext())
+        connectionLiveData.observe(viewLifecycleOwner, { isNetworkAvailable ->
+            if (isNetworkAvailable) {
+                viewModel.requestMovies()
+            } else {
+                Log.e("networkAvailable", "Error $isNetworkAvailable")
+            }
+        })
+
+
         viewModel.movie.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-                   response.data?.let {
-                       Picasso.get().load(Constants.IMAGE_URL + it.backdrop_path).into(binding.backdropImageView)
-                       Picasso.get().load(Constants.IMAGE_URL + it.poster_path).into(binding.poster)
-                       binding.collapsingToolbar.title = it.title
-                       binding.genre.text = it.genres[0].name
+                    response.data?.let {
+                        binding.apply {
+                            collapsingToolbar.title = it.title
+                            genre.text = it.genres[0].name
+                            Picasso.get().load(Constants.IMAGE_URL + it.backdrop_path)
+                                .into(backdropImageView)
+                            Picasso.get().load(Constants.IMAGE_URL + it.poster_path).into(poster)
 
-                       val parser = SimpleDateFormat("yyyy-mm-dd")
-                       val formater = SimpleDateFormat("yyyy")
-                       val output = formater.format(parser.parse(it.release_date))
-                       binding.releaseDate.text = output
+                            val parser = SimpleDateFormat("yyyy-mm-dd")
+                            val formater = SimpleDateFormat("yyyy")
+                            val output = formater.format(parser.parse(it.release_date))
+                            releaseDate.text = output
 
-                       binding.status.text = it.status
-                       binding.budget.text = "$${it.budget}"
-                       binding.revenue.text = "$${it.revenue}"
+                            status.text = it.status
+                            budget.text = "$${it.budget}"
+                            revenue.text = "$${it.revenue}"
 
-                       binding.description.text = it.overview
+                            description.text = it.overview
 
-
-                   }
+                        }
+                    }
                 }
                 is Resource.Error -> {
+
                     response.message.let {
                         Log.e("MovieFragment", "Error $it")
                     }

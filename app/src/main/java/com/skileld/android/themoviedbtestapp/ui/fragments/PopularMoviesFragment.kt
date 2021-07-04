@@ -8,15 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
 import com.skileld.android.themoviedbtestapp.databinding.PopularMoviesFragmentBinding
-import com.skileld.android.themoviedbtestapp.ui.MainActivity
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.ui.viewModels.PopularMoviesViewModel
+import com.skileld.android.themoviedbtestapp.util.ConnectionLiveData
 import com.skileld.android.themoviedbtestapp.util.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class PopularMoviesFragment : Fragment() {
 
@@ -25,7 +22,7 @@ class PopularMoviesFragment : Fragment() {
     }
 
     private lateinit var viewModel: PopularMoviesViewModel
-    lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var moviesAdapter: MoviesAdapter
 
     private var _binding: PopularMoviesFragmentBinding? = null
     private val binding get() = _binding!!
@@ -41,38 +38,37 @@ class PopularMoviesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(PopularMoviesViewModel::class.java)
-        viewModel.requestPopularMovies()
         setupRecyclerView()
+        binding.shimmerLayout.startShimmer()
+
+        val connectionLiveData = ConnectionLiveData(requireContext())
+        connectionLiveData.observe(viewLifecycleOwner, { isNetworkAvailable ->
+            if (isNetworkAvailable){
+                viewModel.requestPopularMovies()
+            }
+            else {
+                Log.e("networkAvailable", "Error $isNetworkAvailable")
+            }
+        })
 
         viewModel.popularMovies.observe(viewLifecycleOwner, { response ->
-            when(response){
+            when (response) {
                 is Resource.Success -> {
-                    hideProgressBar()
+                    binding.shimmerLayout.visibility = View.GONE
                     response.data?.let {
                         moviesAdapter.differ.submitList(it.results)
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar()
                     response.message.let {
                         Log.e("PopularFragment", "Error $it")
                     }
                 }
                 is Resource.Loading -> {
-                    showProgressBar()
+
                 }
             }
         })
-
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.visibility = View.INVISIBLE
-
-    }
-
-    private fun showProgressBar() {
-        binding.progressBar.visibility = View.VISIBLE
 
     }
 
@@ -81,7 +77,7 @@ class PopularMoviesFragment : Fragment() {
         moviesAdapter = MoviesAdapter(movieViewModel)
         binding.rvPopularsMovies.apply {
             adapter = moviesAdapter
-            layoutManager = GridLayoutManager(activity,2)
+            layoutManager = GridLayoutManager(activity, 2)
         }
     }
 

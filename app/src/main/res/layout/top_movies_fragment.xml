@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.TopMoviesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.PopularMoviesFragment">
 
-    <TextView
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/top"
-        android:textSize="60sp" />
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:orientation="horizontal">
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+            <include layout="@layout/shimmer_layout_placeholder" />
+        </GridLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Populars_movies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

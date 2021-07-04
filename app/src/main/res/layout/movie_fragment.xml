@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +8,16 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/movie_fragment_scene"
     tools:context=".ui.fragments.MovieFragment">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <include layout="@layout/movie_fragment_placeholder"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -41,37 +52,44 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/poster"
-        android:layout_width="90dp"
-        android:layout_height="160dp"
-        android:layout_margin="10dp"
-        android:scaleType="fitCenter"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_anchor="@id/backdrop_image_view"
-        app:layout_anchorGravity="start|bottom"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_anchorGravity="start|bottom">
 
-    <TextView
-        android:id="@+id/genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:paddingBottom="50dp"
-        android:textSize="14sp"
-        app:layout_anchor="@id/poster"
-        app:layout_anchorGravity="left|bottom"
-        tools:text="dsadsadsadsad" />
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="90dp"
+            android:layout_height="160dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:paddingBottom="20dp"
-        android:textSize="14sp"
-        app:layout_anchor="@id/poster"
-        app:layout_anchorGravity="left|bottom"
-        tools:text="2021" />
+        <TextView
+            android:id="@+id/genre"
+            android:layout_width="60dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="14sp"
+            app:layout_anchorGravity=""
+            app:layout_constraintBottom_toTopOf="@+id/release_date"
+            app:layout_constraintStart_toEndOf="@+id/poster"
+            tools:text="Criminal" />
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/poster"
+            app:layout_constraintStart_toStartOf="@+id/genre"
+            tools:text="2021" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -150,7 +168,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                android:text="@string/default_web_client_id"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />

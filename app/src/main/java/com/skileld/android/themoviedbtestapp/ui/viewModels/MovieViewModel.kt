@@ -1,7 +1,6 @@
 package com.skileld.android.themoviedbtestapp.ui.viewModels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.skileld.android.themoviedbtestapp.models.MovieResponse
@@ -18,7 +17,7 @@ class MovieViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     var moviesId: Int? = null
 
-    val movieRepository: Repository = Repository()
+    private val movieRepository: Repository = Repository()
     val movie: MutableLiveData<Resource<MovieResponse>> = MutableLiveData()
 
     override val coroutineContext: CoroutineContext
@@ -26,15 +25,10 @@ class MovieViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     private val job = Job()
 
-    init {
-        requestMovies()
-    }
-
     fun requestMovies() {
         launch(Dispatchers.Main) {
             movie.postValue(Resource.Loading())
             val response = movieRepository.getDetails(moviesId ?: 0)
-//            Log.i("")
             movie.postValue(handlerNewsResponse(response))
         }
     }
