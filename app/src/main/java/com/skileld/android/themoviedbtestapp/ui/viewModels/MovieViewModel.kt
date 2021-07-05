@@ -25,7 +25,7 @@ class MovieViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     private val job = Job()
 
-    fun requestMovies() {
+    fun requestMovie() {
         launch(Dispatchers.Main) {
             movie.postValue(Resource.Loading())
             val response = movieRepository.getDetails(moviesId ?: 0)

@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movies_card"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="6dp"
-    android:layout_marginTop="6dp">
+    android:layout_marginTop="6dp"
+    android:layout_marginStart="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="4dp">
@@ -24,12 +24,11 @@
 
         <TextView
             android:id="@+id/movies_title"
-            android:layout_width="100dp"
-            android:layout_height="70dp"
+            android:layout_width="120sp"
+            android:layout_height="15dp"
             android:layout_marginStart="8dp"
             android:background="@color/grey"
             android:textAlignment="viewStart"
-            app:layout_constraintBottom_toTopOf="@+id/release_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movies_image"
             app:layout_constraintTop_toTopOf="@+id/movies_image" />
@@ -63,7 +62,7 @@
             android:background="@color/grey"
             app:layout_constraintBottom_toBottomOf="@+id/movies_image"
             app:layout_constraintStart_toEndOf="@+id/movies_image"
-            app:srcCompat="@drawable/ic_baseline_whatshot_24" />
+            app:srcCompat="@drawable/ic_baseline_star_rate_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

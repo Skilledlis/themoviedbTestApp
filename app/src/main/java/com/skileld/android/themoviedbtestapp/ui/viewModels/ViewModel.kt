@@ -13,13 +13,12 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 
-class PopularMoviesViewModel(
-    app: Application
-) : AndroidViewModel(app), CoroutineScope {
+class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
-    private val popularRepository: Repository = Repository()
-    val popularMovies: MutableLiveData<Resource<MoviesResponse>> = MutableLiveData()
+    var moviesId: Int? = null
 
+    private val movieRepository: Repository = Repository()
+    val movies: MutableLiveData<Resource<MoviesResponse>> = MutableLiveData()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -28,13 +27,29 @@ class PopularMoviesViewModel(
 
     fun requestPopularMovies() {
         launch(Dispatchers.Main) {
-            popularMovies.postValue(Resource.Loading())
-            val response = popularRepository.getPopular()
-            popularMovies.postValue(handlerPopularResponse(response))
+            movies.postValue(Resource.Loading())
+            val response = movieRepository.getPopular()
+            movies.postValue(handlerMoviesResponse(response))
         }
     }
 
-    private fun handlerPopularResponse(response: Response<MoviesResponse>): Resource<MoviesResponse> {
+    fun requestTopMovies() {
+        launch(Dispatchers.Main) {
+            movies.postValue(Resource.Loading())
+            val response = movieRepository.getTop()
+            movies.postValue(handlerMoviesResponse(response))
+        }
+    }
+
+    fun requestSearchMovies(query:String) {
+        launch(Dispatchers.Main) {
+            movies.postValue(Resource.Loading())
+            val response = movieRepository.getSearch(query)
+            movies.postValue(handlerMoviesResponse(response))
+        }
+    }
+
+    private fun handlerMoviesResponse(response: Response<MoviesResponse>): Resource<MoviesResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
@@ -43,9 +58,10 @@ class PopularMoviesViewModel(
         return Resource.Error(response.message())
     }
 
+
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()
     }
-
 }

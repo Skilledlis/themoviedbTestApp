@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
 import com.skileld.android.themoviedbtestapp.databinding.TopMoviesFragmentBinding
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
-import com.skileld.android.themoviedbtestapp.ui.viewModels.TopMoviesViewModel
+import com.skileld.android.themoviedbtestapp.ui.viewModels.ViewModel
 import com.skileld.android.themoviedbtestapp.util.ConnectionLiveData
 import com.skileld.android.themoviedbtestapp.util.Resource
 
@@ -21,7 +21,7 @@ class TopMoviesFragment : Fragment() {
         fun newInstance() = TopMoviesFragment()
     }
 
-    private lateinit var viewModel: TopMoviesViewModel
+    private lateinit var viewModel: ViewModel
     private lateinit var moviesAdapter: MoviesAdapter
 
     private var _binding: TopMoviesFragmentBinding? = null
@@ -37,7 +37,7 @@ class TopMoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TopMoviesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         setupRecyclerView()
         binding.shimmerLayout.startShimmer()
 
@@ -50,7 +50,7 @@ class TopMoviesFragment : Fragment() {
             }
         })
 
-        viewModel.popularMovies.observe(viewLifecycleOwner, { response ->
+        viewModel.movies.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.shimmerLayout.visibility = View.GONE

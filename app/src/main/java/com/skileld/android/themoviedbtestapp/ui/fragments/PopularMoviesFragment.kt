@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
 import com.skileld.android.themoviedbtestapp.databinding.PopularMoviesFragmentBinding
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
-import com.skileld.android.themoviedbtestapp.ui.viewModels.PopularMoviesViewModel
+import com.skileld.android.themoviedbtestapp.ui.viewModels.ViewModel
 import com.skileld.android.themoviedbtestapp.util.ConnectionLiveData
 import com.skileld.android.themoviedbtestapp.util.Resource
 
@@ -21,7 +21,7 @@ class PopularMoviesFragment : Fragment() {
         fun newInstance() = PopularMoviesFragment()
     }
 
-    private lateinit var viewModel: PopularMoviesViewModel
+    private lateinit var viewModel: ViewModel
     private lateinit var moviesAdapter: MoviesAdapter
 
     private var _binding: PopularMoviesFragmentBinding? = null
@@ -37,21 +37,20 @@ class PopularMoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(PopularMoviesViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
         setupRecyclerView()
         binding.shimmerLayout.startShimmer()
 
         val connectionLiveData = ConnectionLiveData(requireContext())
         connectionLiveData.observe(viewLifecycleOwner, { isNetworkAvailable ->
-            if (isNetworkAvailable){
+            if (isNetworkAvailable) {
                 viewModel.requestPopularMovies()
-            }
-            else {
+            } else {
                 Log.e("networkAvailable", "Error $isNetworkAvailable")
             }
         })
 
-        viewModel.popularMovies.observe(viewLifecycleOwner, { response ->
+        viewModel.movies.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.shimmerLayout.visibility = View.GONE

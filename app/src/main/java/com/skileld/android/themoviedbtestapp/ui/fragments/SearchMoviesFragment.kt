@@ -10,10 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
-import com.skileld.android.themoviedbtestapp.databinding.ItemMoveisCardBinding
 import com.skileld.android.themoviedbtestapp.databinding.SearchMoviesFragmentBinding
 import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
-import com.skileld.android.themoviedbtestapp.ui.viewModels.SearchMoviesViewModel
+import com.skileld.android.themoviedbtestapp.ui.viewModels.ViewModel
 import com.skileld.android.themoviedbtestapp.util.ConnectionLiveData
 import com.skileld.android.themoviedbtestapp.util.Resource
 
@@ -23,7 +22,7 @@ class SearchMoviesFragment : Fragment() {
         fun newInstance() = SearchMoviesFragment()
     }
 
-    private lateinit var viewModel: SearchMoviesViewModel
+    private lateinit var viewModel: ViewModel
     private lateinit var moviesAdapter: MoviesAdapter
 
     private var _binding: SearchMoviesFragmentBinding? = null
@@ -42,20 +41,19 @@ class SearchMoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SearchMoviesViewModel::class.java)
-
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         setupRecyclerView()
 
         val connectionLiveData = ConnectionLiveData(requireContext())
         connectionLiveData.observe(viewLifecycleOwner, { isNetworkAvailable ->
             if (isNetworkAvailable) {
-                viewModel.requestMovies(binding.searchView.query.toString())
+                viewModel.requestSearchMovies(binding.searchView.query.toString())
             } else {
                 Log.e("networkAvailable", "Error $isNetworkAvailable")
             }
         })
 
-        viewModel.searchMovies.observe(viewLifecycleOwner, { response ->
+        viewModel.movies.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data?.let {
@@ -73,8 +71,6 @@ class SearchMoviesFragment : Fragment() {
             }
         })
 
-
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -84,7 +80,7 @@ class SearchMoviesFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    viewModel.requestMovies(newText)
+                    viewModel.requestSearchMovies(newText)
                 }
                 return false
             }
@@ -100,7 +96,5 @@ class SearchMoviesFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
         }
     }
-
-
 }
 
