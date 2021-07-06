@@ -56,7 +56,7 @@ class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
     fun requestTopMovies() {
         launch(Dispatchers.Main) {
             movies.postValue(Resource.Loading())
-            val response = movieRepository.getTop()
+            val response = movieRepository.getTop(moviesPage)
             movies.postValue(handlerMoviesResponse(response))
         }
     }

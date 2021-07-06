@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
 
         splashLayout = findViewById(R.id.splash_activity)
         splashLayout.alpha = 0f
-        splashLayout.animate().setDuration(200).alpha(1f).withEndAction {
+        splashLayout.animate().setDuration(1000).alpha(1f).withEndAction {
             startActivity(Intent(this, MainActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
