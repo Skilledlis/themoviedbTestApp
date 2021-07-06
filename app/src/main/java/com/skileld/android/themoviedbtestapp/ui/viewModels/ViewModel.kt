@@ -7,7 +7,10 @@ import com.skileld.android.themoviedbtestapp.models.MovieResponse
 import com.skileld.android.themoviedbtestapp.models.MoviesResponse
 import com.skileld.android.themoviedbtestapp.repository.Repository
 import com.skileld.android.themoviedbtestapp.util.Resource
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 
@@ -25,8 +28,8 @@ class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
     val searchMovies: MutableLiveData<Resource<MoviesResponse>> = MutableLiveData()
     var searchMoviesPage = 1
     var searchMoviesResponse: MoviesResponse? = null
-    var newSearchQuery:String? = null
-    var oldSearchQuery:String? = null
+    var newSearchQuery: String? = null
+    var oldSearchQuery: String? = null
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -60,9 +63,9 @@ class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     fun requestSearchMovies(query: String) {
         launch(Dispatchers.Main) {
-            delay(500)
+            newSearchQuery = query
             searchMovies.postValue(Resource.Loading())
-            val response = movieRepository.getSearch(query)
+            val response = movieRepository.getSearch(newSearchQuery!!, searchMoviesPage)
             searchMovies.postValue(handlerSearchMoviesResponse(response))
         }
     }
@@ -73,7 +76,7 @@ class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
                 moviesPage++
                 if (popularMoviesResponse == null) {
                     popularMoviesResponse = resultResponse
-                }else{
+                } else {
                     val oldResult = popularMoviesResponse?.results
                     val newResult = resultResponse.results
                     oldResult?.addAll(newResult)
@@ -84,18 +87,19 @@ class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
         return Resource.Error(response.message())
     }
 
-    private fun handlerSearchMoviesResponse(response: Response<MoviesResponse>) : Resource<MoviesResponse> {
-        if(response.isSuccessful) {
+    private fun handlerSearchMoviesResponse(response: Response<MoviesResponse>): Resource<MoviesResponse> {
+        if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                if(searchMoviesResponse == null || newSearchQuery != oldSearchQuery) {
+
+                if (searchMoviesResponse == null || newSearchQuery != oldSearchQuery) {
                     searchMoviesPage = 1
                     oldSearchQuery = newSearchQuery
                     searchMoviesResponse = resultResponse
                 } else {
                     searchMoviesPage++
                     val oldResult = searchMoviesResponse?.results
-                    val newArticles = resultResponse.results
-                    oldResult?.addAll(newArticles)
+                    val newResult = resultResponse.results
+                    oldResult?.addAll(newResult)
                 }
                 return Resource.Success(searchMoviesResponse ?: resultResponse)
             }

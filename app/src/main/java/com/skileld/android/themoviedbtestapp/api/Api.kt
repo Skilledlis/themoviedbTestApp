@@ -28,6 +28,8 @@ interface Api {
         apiKey: String = API_KEY,
         @Query("language")
         language: String = "ru",
+        @Query("page")
+        page: Int = 1,
         @Query("region")
         region: String = "RU"
     ): Response<MoviesResponse>
@@ -38,6 +40,8 @@ interface Api {
         apiKey: String = API_KEY,
         @Query("language")
         language: String = "ru",
+        @Query("page")
+        page: Int = 1,
         @Query("query")
         query: String,
         @Query("include_adult")

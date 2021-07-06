@@ -10,6 +10,7 @@ class Repository {
     ) = RetrofitInstance.api.getDetails(id)
 
     suspend fun getSearch(
-        query: String
-    ) = RetrofitInstance.api.searchMovies(query = query)
+        query: String,
+        page: Int
+    ) = RetrofitInstance.api.searchMovies(query = query, page = page)
 }
