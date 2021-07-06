@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.skileld.android.themoviedbtestapp.databinding.MovieFragmentBinding
-import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
+import com.skileld.android.themoviedbtestapp.ui.viewModels.ViewModel
 import com.skileld.android.themoviedbtestapp.util.Constants
 import com.skileld.android.themoviedbtestapp.util.Resource
 import com.squareup.picasso.Picasso
@@ -21,7 +21,7 @@ class MovieFragment : Fragment() {
         fun newInstance() = MovieFragment()
     }
 
-    private lateinit var viewModel: MovieViewModel
+    private lateinit var viewModel: ViewModel
 
     private var _binding: MovieFragmentBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +36,7 @@ class MovieFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
         viewModel.requestMovie()
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)

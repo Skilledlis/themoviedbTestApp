@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skileld.android.themoviedbtestapp.R
 import com.skileld.android.themoviedbtestapp.databinding.ItemMoveisCardBinding
 import com.skileld.android.themoviedbtestapp.models.Result
-import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
+import com.skileld.android.themoviedbtestapp.ui.viewModels.ViewModel
 import com.skileld.android.themoviedbtestapp.util.Constants.Companion.IMAGE_URL
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 
 
-class MoviesAdapter(var movieViewModel: MovieViewModel) :
+class MoviesAdapter(var movieViewModel: ViewModel) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
 
     inner class MoviesViewHolder(binding: ItemMoveisCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        public var moviesImage = binding.moviesImage
+        var moviesImage = binding.moviesImage
         val moviesTitle = binding.moviesTitle
         val moviesReleaseDate = binding.releaseDate
         val moviesPopularity = binding.popularity
@@ -62,9 +62,6 @@ class MoviesAdapter(var movieViewModel: MovieViewModel) :
                     holder.moviesReleaseDate.text = output
                 }
             }
-
-
-
 
             holder.moviesPopularity.text = if (movies.vote_average.toString() != "0.0") {
                 movies.vote_average.toString()

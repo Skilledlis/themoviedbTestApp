@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.skileld.android.themoviedbtestapp.adapter.MoviesAdapter
 import com.skileld.android.themoviedbtestapp.databinding.TopMoviesFragmentBinding
-import com.skileld.android.themoviedbtestapp.ui.viewModels.MovieViewModel
 import com.skileld.android.themoviedbtestapp.ui.viewModels.ViewModel
 import com.skileld.android.themoviedbtestapp.util.ConnectionLiveData
 import com.skileld.android.themoviedbtestapp.util.Resource
@@ -71,7 +70,7 @@ class TopMoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val movieViewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+        val movieViewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
         moviesAdapter = MoviesAdapter(movieViewModel)
         binding.rvPopularsMovies.apply {
             adapter = moviesAdapter
