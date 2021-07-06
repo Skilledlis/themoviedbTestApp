@@ -7,10 +7,7 @@ import com.skileld.android.themoviedbtestapp.models.MovieResponse
 import com.skileld.android.themoviedbtestapp.models.MoviesResponse
 import com.skileld.android.themoviedbtestapp.repository.Repository
 import com.skileld.android.themoviedbtestapp.util.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 
@@ -63,6 +60,7 @@ class ViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     fun requestSearchMovies(query: String) {
         launch(Dispatchers.Main) {
+            delay(500)
             newSearchQuery = query
             searchMovies.postValue(Resource.Loading())
             val response = movieRepository.getSearch(newSearchQuery!!, searchMoviesPage)
